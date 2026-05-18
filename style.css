@@ -1,0 +1,792 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap');
+
+/* ============================================
+   PRO-COURT BROADCAST — Design System
+   Stitch-Generated Theme
+   ============================================ */
+
+:root {
+  /* Surface & Background */
+  --surface: #131318;
+  --surface-dim: #131318;
+  --surface-container-lowest: #0e0e13;
+  --surface-container-low: #1b1b20;
+  --surface-container: #1f1f24;
+  --surface-container-high: #2a292f;
+  --surface-container-highest: #35343a;
+  --on-surface: #e4e1e9;
+  --on-surface-variant: #e2bfb0;
+
+  /* Primary — Orange Accent */
+  --primary: #ffb693;
+  --primary-container: #ff6b00;
+  --on-primary: #561f00;
+  --on-primary-container: #572000;
+
+  /* Secondary — Timeout Blue */
+  --secondary: #a8c8ff;
+  --secondary-container: #3491ff;
+  --on-secondary: #003061;
+
+  /* Tertiary — Shot Clock Red */
+  --tertiary: #ffb3b2;
+  --tertiary-container: #ff666c;
+  --on-tertiary: #680013;
+
+  /* Functional Colors */
+  --outline: #a98a7d;
+  --outline-variant: #5a4136;
+
+  /* Custom Application Colors */
+  --bg-deep: #0b0b10;
+  --card-bg: #12121a;
+  --card-border: #1e1e2c;
+  --btn-bg: #1a1a26;
+  --btn-border: #2a2a3e;
+  --accent-orange: #ff6b00;
+  --accent-red: #ff2244;
+  --accent-blue: #1a7aff;
+  --accent-green: #3ddc84;
+  --text-primary: #ffffff;
+  --text-secondary: #888;
+  --text-muted: #555;
+  --text-dim: #444;
+  --text-shortcut: #555;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-deep);
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Barlow Condensed', sans-serif;
+  color: var(--text-primary);
+}
+
+/* ============================================
+   SCOREBOARD CONTAINER
+   ============================================ */
+.sb {
+  background: var(--bg-deep);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2vh 2vw;
+}
+
+/* ============================================
+   TOP BAR
+   ============================================ */
+.sb-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1vh;
+  padding-bottom: 0.5vh;
+  border-bottom: 1px solid var(--card-border);
+  height: 5vh;
+}
+
+.sb-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2vh;
+  letter-spacing: 2px;
+  color: var(--accent-orange);
+  text-transform: uppercase;
+}
+
+.period-text {
+  color: var(--accent-orange);
+  font-family: 'Oswald', sans-serif;
+  font-size: 5vh;
+  font-weight: 700;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.period-text:hover {
+  color: #ff8833;
+}
+
+/* ============================================
+   BODY — 3-COLUMN GRID
+   ============================================ */
+.sb-body {
+  display: grid;
+  grid-template-columns: 1fr 25vw 1fr;
+  gap: 2vw;
+  flex: 1;
+  margin-bottom: 1.5vh;
+  min-height: 0;
+}
+
+/* ============================================
+   TEAM PANEL
+   ============================================ */
+.team {
+  background: var(--card-bg);
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  padding: 2vh 1vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  transition: border-color 0.3s;
+}
+
+.team-name {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--btn-border);
+  color: var(--text-primary);
+  font-family: 'Oswald', sans-serif;
+  font-size: 4.5vh;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-align: center;
+  width: 80%;
+  outline: none;
+  padding-bottom: 1vh;
+  text-transform: uppercase;
+  transition: border-color 0.3s;
+}
+
+.team-name:focus {
+  border-bottom-color: var(--accent-orange);
+}
+
+.team-name::placeholder {
+  color: var(--text-dim);
+}
+
+/* ============================================
+   SCORE DISPLAY
+   ============================================ */
+.score-num {
+  font-family: 'Oswald', sans-serif;
+  font-size: 30vh;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-primary);
+  letter-spacing: -3px;
+  cursor: default;
+  transition: color 0.15s, transform 0.15s;
+}
+
+.score-num.flash {
+  animation: scoreFlash 0.35s ease;
+}
+
+@keyframes scoreFlash {
+  0% {
+    color: var(--accent-orange);
+    transform: scale(1.08);
+    text-shadow: 0 0 30px rgba(255, 107, 0, 0.6);
+  }
+  100% {
+    color: var(--text-primary);
+    transform: scale(1);
+    text-shadow: none;
+  }
+}
+
+/* ============================================
+   SCORE BUTTONS
+   ============================================ */
+.score-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8vw;
+  width: 80%;
+}
+
+.btn-pts {
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2.5vh;
+  font-weight: 600;
+  padding: 1.2vh 0;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.btn-pts:hover {
+  background: var(--accent-orange);
+  border-color: var(--accent-orange);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+}
+
+.btn-pts:active {
+  transform: scale(0.94);
+}
+
+.btn-pts .k {
+  display: block;
+  font-size: 1.4vh;
+  font-weight: 400;
+  color: var(--text-shortcut);
+  margin-top: 0.4vh;
+}
+
+.btn-pts:hover .k {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Minus Button */
+.btn-minus {
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  border-radius: 6px;
+  color: #666;
+  font-size: 3.5vh;
+  padding: 0.5vh 0;
+  cursor: pointer;
+  width: 80%;
+  transition: all 0.12s;
+  line-height: 1;
+}
+
+.btn-minus:hover {
+  background: #2a1010;
+  border-color: #552222;
+  color: #ff4455;
+}
+
+.btn-minus:active {
+  transform: scale(0.94);
+}
+
+/* ============================================
+   INDICATORS ROW (BONUS)
+   ============================================ */
+.indicators-row {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+  margin-top: 1vh;
+  gap: 1vw;
+}
+
+.indicator {
+  flex: 1;
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  border-radius: 6px;
+  font-size: 2vh;
+  font-weight: 600;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: center;
+  padding: 1vh 0;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 1px;
+}
+
+.indicator.on {
+  background: var(--accent-red);
+  color: #fff;
+  border-color: #ff5566;
+  box-shadow: 0 0 15px rgba(255, 34, 68, 0.5);
+  animation: bonusPulse 2s ease-in-out infinite;
+}
+
+@keyframes bonusPulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 34, 68, 0.5); }
+  50% { box-shadow: 0 0 25px rgba(255, 34, 68, 0.8); }
+}
+
+/* ============================================
+   FOULS & TIMEOUTS
+   ============================================ */
+.fouls-tos {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+  margin-top: 1vh;
+}
+
+.ft-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8vh;
+  width: 45%;
+}
+
+.sec-label {
+  font-size: 1.8vh;
+  color: #666;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+}
+
+/* Foul Dots */
+.dots-row {
+  display: flex;
+  gap: 0.4vw;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.fdot {
+  width: 2vh;
+  height: 2vh;
+  border-radius: 50%;
+  background: var(--btn-bg);
+  border: 1px solid #2e2e42;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fdot.on {
+  background: var(--accent-orange);
+  border-color: #ff8833;
+  box-shadow: 0 0 8px rgba(255, 107, 0, 0.5);
+}
+
+.fdot:hover {
+  border-color: var(--accent-orange);
+  transform: scale(1.15);
+}
+
+/* Timeout Dots */
+.tdot {
+  width: 2vh;
+  height: 2vh;
+  border-radius: 3px;
+  background: var(--btn-bg);
+  border: 1px solid #2e2e42;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tdot.on {
+  background: var(--accent-blue);
+  border-color: #3399ff;
+  box-shadow: 0 0 8px rgba(26, 122, 255, 0.5);
+}
+
+.tdot:hover {
+  border-color: var(--accent-blue);
+  transform: scale(1.15);
+}
+
+/* ============================================
+   CENTER PANEL
+   ============================================ */
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 1vh;
+}
+
+/* Clock Box */
+.clock-box {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  width: 100%;
+  padding: 2vh 1vw;
+  text-align: center;
+}
+
+.clk-label {
+  font-size: 1.8vh;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 0.5vh;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+}
+
+.clk-num {
+  font-family: 'Oswald', sans-serif;
+  font-size: 14vh;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.clk-num:hover {
+  color: #ddd;
+}
+
+.clk-num.warn {
+  color: #ff9900;
+}
+
+.clk-num.danger {
+  color: var(--accent-red);
+  animation: blink 0.5s ease infinite;
+}
+
+/* Shot Clock Box */
+.shot-box {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  width: 100%;
+  padding: 2vh 1vw;
+  text-align: center;
+  transition: all 0.5s ease;
+}
+
+.shot-box.warning-bg {
+  background: #1a0a0a;
+  border-color: rgba(255, 34, 68, 0.5);
+  box-shadow: 0 0 30px rgba(255, 34, 68, 0.2);
+}
+
+.shot-num {
+  font-family: 'Oswald', sans-serif;
+  font-size: 18vh;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent-red);
+  cursor: pointer;
+  transition: color 0.3s, text-shadow 0.3s;
+  text-shadow: 0 0 20px rgba(255, 34, 68, 0.3);
+}
+
+.shot-num:hover {
+  text-shadow: 0 0 30px rgba(255, 34, 68, 0.6);
+}
+
+.shot-num.warn {
+  color: #ff9900;
+  text-shadow: 0 0 20px rgba(255, 153, 0, 0.4);
+}
+
+.shot-num.danger {
+  color: var(--accent-red);
+  animation: blink 0.5s ease infinite;
+  text-shadow: 0 0 30px rgba(255, 34, 68, 0.7);
+}
+
+.shot-num.paused {
+  color: #888;
+  opacity: 0.5;
+  text-shadow: none;
+}
+
+.shot-adj-row {
+  display: flex;
+  justify-content: center;
+  gap: 1vw;
+  margin-top: 1vh;
+}
+
+.shot-adj-row .btn-minus {
+  margin: 0;
+  padding: 0.5vh 1vw;
+  width: auto;
+  font-size: 2vh;
+  border-radius: 4px;
+}
+
+/* Jump Arrows */
+.jump-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2vw;
+  width: 100%;
+}
+
+.jump-arrow {
+  font-size: 10vh;
+  color: #333;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+  line-height: 1;
+}
+
+.jump-arrow:hover {
+  color: #666;
+}
+
+.jump-arrow.active {
+  color: var(--accent-red);
+  text-shadow: 0 0 25px rgba(255, 34, 68, 0.6);
+}
+
+/* Period Row */
+.qrow {
+  display: flex;
+  gap: 1vw;
+  width: 100%;
+}
+
+.qbtn {
+  flex: 1;
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-size: 2vh;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  padding: 1vh 0;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.qbtn:hover {
+  background: var(--btn-border);
+  color: #fff;
+}
+
+.vs-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.5vh;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+}
+
+/* ============================================
+   BLINK ANIMATION
+   ============================================ */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+/* ============================================
+   CONTROL BAR
+   ============================================ */
+.ctrl-bar {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5vw;
+  height: 7vh;
+}
+
+.ctrl {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.7vh;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.12s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+
+.ctrl:hover {
+  background: var(--surface-container);
+  border-color: #333;
+}
+
+.ctrl:active {
+  transform: scale(0.96);
+}
+
+.ctrl .k {
+  display: block;
+  font-size: 1.4vh;
+  font-weight: 400;
+  color: var(--text-shortcut);
+}
+
+/* Control Button Variants */
+.ctrl.play {
+  background: #0d3320;
+  border-color: #1a5e38;
+  color: var(--accent-green);
+}
+
+.ctrl.play .k { color: #1a5e38; }
+
+.ctrl.paused {
+  background: #2a1a00;
+  border-color: #664400;
+  color: #ff9900;
+}
+
+.ctrl.paused .k { color: #664400; }
+
+.ctrl.sc24 {
+  border-color: #3344aa;
+  color: #7799ff;
+}
+
+.ctrl.sc24 .k { color: #3344aa; }
+
+.ctrl.sc14 {
+  border-color: #224488;
+  color: #5588ee;
+}
+
+.ctrl.sc14 .k { color: #224488; }
+
+.ctrl.rst {
+  border-color: #663333;
+  color: #ff5566;
+}
+
+.ctrl.rst .k { color: #663333; }
+
+.ctrl.fs {
+  border-color: #555;
+  color: #ccc;
+}
+
+/* ============================================
+   KEYBOARD LEGEND
+   ============================================ */
+.kb-legend {
+  text-align: center;
+  font-size: 1.1vh;
+  color: var(--text-muted);
+  margin-top: 0.5vh;
+  line-height: 1.4;
+  letter-spacing: 0.3px;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+/* ============================================
+   TIMEOUT OVERLAY
+   ============================================ */
+.to-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(11, 11, 16, 0.95);
+  z-index: 1000;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(15px);
+}
+
+.to-overlay.active {
+  display: flex;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.to-team-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 7vh;
+  letter-spacing: 3px;
+  color: var(--accent-orange);
+  text-transform: uppercase;
+  margin-bottom: 2vh;
+  text-shadow: 0 0 30px rgba(255, 107, 0, 0.3);
+}
+
+.to-timer {
+  font-family: 'Oswald', sans-serif;
+  font-size: 28vh;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-primary);
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
+  transition: color 0.3s;
+}
+
+.to-timer.warn {
+  color: #ff9900;
+}
+
+.to-timer.danger {
+  color: var(--accent-red);
+  animation: blink 0.5s ease infinite;
+}
+
+.to-btn-row {
+  display: flex;
+  gap: 2vw;
+  margin-top: 5vh;
+}
+
+.to-btn {
+  background: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 3vh;
+  font-weight: 600;
+  padding: 1.5vh 3vw;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.to-btn:hover {
+  background: var(--accent-orange);
+  border-color: var(--accent-orange);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 0, 0.3);
+}
+
+.to-btn.close:hover {
+  background: var(--accent-red);
+  border-color: #ff5566;
+  box-shadow: 0 6px 20px rgba(255, 34, 68, 0.3);
+}
+
+/* ============================================
+   SHOT CLOCK PAUSE LABEL
+   ============================================ */
+.clk-label.clickable {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.clk-label.clickable:hover {
+  color: var(--accent-orange);
+}

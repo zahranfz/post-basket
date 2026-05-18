@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Basketball POST 4.0 - Professional Shotclock Scoreboard">
+    <title>Basketball POST 4.0</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- TIMEOUT OVERLAY -->
+    <div class="to-overlay" id="to-overlay">
+        <div class="to-team-name" id="to-team-name">TIMEOUT: HOME</div>
+        <div class="to-timer" id="to-timer">60</div>
+        <div class="to-btn-row">
+            <button class="to-btn" id="btn-to-play" onclick="toggleToClock()">Play (Space)</button>
+            <button class="to-btn close" onclick="closeTimeout()">Close (C)</button>
+        </div>
+    </div>
+
+    <!-- MAIN SCOREBOARD -->
+    <div class="sb" id="sb-container">
+        <!-- TOP BAR -->
+        <div class="sb-top">
+            <div class="sb-title">Basketball POST 4.0</div>
+            <div class="period-text" id="qbadge" onclick="changeQ(1)">Q1</div>
+            <div style="width: 180px"></div>
+        </div>
+
+        <!-- BODY — 3 Column -->
+        <div class="sb-body">
+            <!-- ===== HOME TEAM (LEFT) ===== -->
+            <div class="team" id="teamA">
+                <input class="team-name" id="nameA" maxlength="15" placeholder="HOME" value="HOME">
+                <div class="score-num" id="sA" onclick="pts('A', 1)">0</div>
+                <div class="score-row">
+                    <button class="btn-pts" onclick="pts('A',1)">+1<span class="k">Q</span></button>
+                    <button class="btn-pts" onclick="pts('A',2)">+2<span class="k">W</span></button>
+                    <button class="btn-pts" onclick="pts('A',3)">+3<span class="k">E</span></button>
+                </div>
+                <button class="btn-minus" onclick="pts('A',-1)" title="Kurangi 1 poin">−</button>
+
+                <div class="indicators-row">
+                    <div class="indicator" id="bonusA" onclick="toggleBonus('A')">BONUS</div>
+                </div>
+
+                <div class="fouls-tos">
+                    <div class="ft-col">
+                        <div class="sec-label">Fouls <span class="k">(F)</span></div>
+                        <div class="dots-row" id="fdA"></div>
+                    </div>
+                    <div class="ft-col">
+                        <div class="sec-label">Timeout <span class="k">(X)</span></div>
+                        <div class="dots-row" id="tdA"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== CENTER ===== -->
+            <div class="center">
+                <!-- Game Clock -->
+                <div class="clock-box">
+                    <div class="clk-label">Game Clock</div>
+                    <div class="clk-num" id="gclock" onclick="editClock()" title="Click to edit">7:00</div>
+                </div>
+
+                <!-- Jumpball + Shot Clock -->
+                <div class="jump-row">
+                    <div class="jump-arrow" id="jarrow-left" onclick="setJumpArrow('left')" title="Jumpball Left (←)">◀
+                    </div>
+                    <div class="shot-box" id="shot-box">
+                        <div class="clk-label clickable" onclick="toggleShotClockPause()"
+                            title="Pause/Play Shot Clock (P)">Shot Clock (P)</div>
+                        <div class="shot-num" id="sclock" onclick="editShot()" title="Click to edit">24</div>
+                        <div class="shot-adj-row">
+                            <button class="btn-minus" onclick="adjShot(-1)" title="-1 Sec (2)">−1s</button>
+                            <button class="btn-minus" onclick="adjShot(1)" title="+1 Sec (1)">+1s</button>
+                        </div>
+                    </div>
+                    <div class="jump-arrow" id="jarrow-right" onclick="setJumpArrow('right')"
+                        title="Jumpball Right (→)">▶</div>
+                </div>
+
+                <!-- Period Controls -->
+                <div class="qrow">
+                    <button class="qbtn" onclick="changeQ(-1)">◀ Period</button>
+                    <button class="qbtn" onclick="changeQ(1)">Period ▶</button>
+                </div>
+
+                <div class="vs-label">VS</div>
+            </div>
+
+            <!-- ===== AWAY TEAM (RIGHT) ===== -->
+            <div class="team" id="teamB">
+                <input class="team-name" id="nameB" maxlength="15" placeholder="AWAY" value="AWAY">
+                <div class="score-num" id="sB" onclick="pts('B', 1)">0</div>
+                <div class="score-row">
+                    <button class="btn-pts" onclick="pts('B',1)">+1<span class="k">U</span></button>
+                    <button class="btn-pts" onclick="pts('B',2)">+2<span class="k">I</span></button>
+                    <button class="btn-pts" onclick="pts('B',3)">+3<span class="k">O</span></button>
+                </div>
+                <button class="btn-minus" onclick="pts('B',-1)" title="Kurangi 1 poin">−</button>
+
+                <div class="indicators-row">
+                    <div class="indicator" id="bonusB" onclick="toggleBonus('B')">BONUS</div>
+                </div>
+
+                <div class="fouls-tos">
+                    <div class="ft-col">
+                        <div class="sec-label">Fouls <span class="k">(G)</span></div>
+                        <div class="dots-row" id="fdB"></div>
+                    </div>
+                    <div class="ft-col">
+                        <div class="sec-label">Timeout <span class="k">(M)</span></div>
+                        <div class="dots-row" id="tdB"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM CONTROL BAR -->
+        <div class="ctrl-bar">
+            <button class="ctrl play" id="btnPP" onclick="toggleClock()">
+                <i class="ti ti-player-play" aria-hidden="true" style="font-size:2vh"></i>Play
+                <span class="k">Space</span>
+            </button>
+            <button class="ctrl sc24" onclick="resetShot(24)">
+                <i class="ti ti-refresh" aria-hidden="true" style="font-size:2vh"></i>24 Sec
+                <span class="k">S</span>
+            </button>
+            <button class="ctrl sc14" onclick="resetShot(14)">
+                <i class="ti ti-refresh" aria-hidden="true" style="font-size:2vh"></i>14 Sec
+                <span class="k">D</span>
+            </button>
+            <button class="ctrl" onclick="resetFoulsTimeouts()" style="border-color:#335533;color:#55bb55">
+                <i class="ti ti-circle-x" aria-hidden="true" style="font-size:2vh"></i>Reset F/T
+                <span class="k" style="color:#335533">Ctrl+F</span>
+            </button>
+            <button class="ctrl rst" onclick="fullReset()">
+                <i class="ti ti-rotate" aria-hidden="true" style="font-size:2vh"></i>Full Reset
+                <span class="k">R</span>
+            </button>
+            <button class="ctrl fs" onclick="toggleFullScreen()">
+                <i class="ti ti-maximize" aria-hidden="true" style="font-size:2vh"></i>Fullscreen
+                <span class="k">F11</span>
+            </button>
+        </div>
+
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
